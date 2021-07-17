@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ./php
+    volumes:
+      - ./todo_app/:/var/www/html
+      - ./apache2.conf:/etc/apache2/apache2.conf
+    ports:
+      - 44:80
+
+  db:
+    build:
+      context: ./mysql
+    restart: always
+    ports:
+      - 4444:3306
+    environment:
+      MYSQL_DATABASE: todo_list
+      MYSQL_ROOT_PASSWORD: hoge
+      MYSQL_USER: user
+      MYSQL_PASSWORD: hoge
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - db:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+volumes:
+  db:
