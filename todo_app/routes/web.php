@@ -13,4 +13,10 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('/');
+
+Route::get('report', 'ReportsController@index')->name('report.index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
